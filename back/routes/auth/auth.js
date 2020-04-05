@@ -8,10 +8,10 @@ router.post("/signup", function (req, res, next) {
   connection.query("INSERT INTO users SET ?", formData, (err, results) => {
     if (err) {
       // If an error has occurred, then the user is informed of the error
-      res.status(500).send("Error saving an user");
+      res.status(500).json({ flash: err.message });
     } else {
       // If everything went well, we send a status "ok".
-      res.sendStatus(200);
+      res.status(200).json({ flash: "User has been sign up" });
     }
   });
 });

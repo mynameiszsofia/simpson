@@ -21,13 +21,13 @@ app.get("/", (req, res) => {
 });
 
 //in case path is not found return the 'not found'
-app.use(function(reg, res, next) {
+app.use(function (reg, res, next) {
   var err = new Error("Not found");
   err.status / 404;
   next(err);
 });
 
 //launch the node server
-let server = app.listen(process.env.PORT || 3000, function() {
+let server = app.listen(process.env.PORT || 5000, function () {
   console.log("Listening on port " + server.address().port);
 });

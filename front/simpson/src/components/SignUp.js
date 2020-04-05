@@ -9,40 +9,55 @@ class MyComponent extends Component {
       password: "",
       passwordConf: "",
       name: "",
-      lastname: ""
+      lastname: "",
+      flash: "",
     };
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
     console.log(JSON.stringify(this.state, 1, 1));
-  }
+    fetch("/auth/signup", {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+      body: JSON.stringify(this.state),
+    })
+      .then((res) => res.json())
+      .then(
+        (res) => this.setState({ flash: res.flash }),
+        (err) => this.setState({ flash: err.flash })
+      );
+  };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit}>
           <h1>{JSON.stringify(this.state, 1, 1)}</h1>
           <input
             type="email"
             name="email"
             placeholder="test@test.com"
             value={this.state.email}
-            onChange={event => this.setState({ email: event.target.value })}
+            onChange={(event) => this.setState({ email: event.target.value })}
           />
           <input
             type="password"
             name="password"
             value={this.state.password}
             placeholder="password"
-            onChange={event => this.setState({ password: event.target.value })}
+            onChange={(event) =>
+              this.setState({ password: event.target.value })
+            }
           ></input>
           <input
             type="password"
             name="passwordConf"
             value={this.state.passwordConf}
             placeholder="password again"
-            onChange={event =>
+            onChange={(event) =>
               this.setState({ passwordConf: event.target.value })
             }
           ></input>
@@ -51,14 +66,16 @@ class MyComponent extends Component {
             name="name"
             value={this.state.name}
             placeholder="name"
-            onChange={event => this.setState({ name: event.target.value })}
+            onChange={(event) => this.setState({ name: event.target.value })}
           ></input>
           <input
             type="text"
             name="lastname"
             value={this.state.lastname}
             placeholder="lastname"
-            onChange={event => this.setState({ lastname: event.target.value })}
+            onChange={(event) =>
+              this.setState({ lastname: event.target.value })
+            }
           ></input>
           <input type="submit" value="Submit" />
         </form>
