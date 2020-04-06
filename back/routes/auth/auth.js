@@ -4,8 +4,14 @@ const connection = require("./../../helpers/db.js");
 
 router.post("/signup", function (req, res, next) {
   /*   res.send('I am in POST signup'); */
-  const formData = req.body;
-  connection.query("INSERT INTO users SET ?", formData, (err, results) => {
+  const {
+    flash,
+    passwordConf,
+    snackbarmsg,
+    snackbaropen,
+    ...newUser
+  } = req.body;
+  connection.query("INSERT INTO users SET ?", newUser, (err, results) => {
     if (err) {
       // If an error has occurred, then the user is informed of the error
       res.status(500).json({ flash: err.message });

@@ -4,17 +4,23 @@
   "description": "Wild server",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "server": "nodemon app.js",
+    "client": "npm start --prefix ../front/simpson",
+    "client-install": "npm install --prefix ../front/simpson",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "wilder",
   "dependencies": {
+    "@material-ui/core": "^4.9.9",
+    "@material-ui/icons": "^4.9.1",
     "body-parser": "1.19.0",
     "concurrently": "^5.1.0",
     "core-util-is": "^1.0.2",
     "express": "4.17.1",
     "morgan": "1.10.0",
-    "mysql": "github:mysqljs/mysql"
+    "mysql": "github:mysqljs/mysql",
+    "package": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
